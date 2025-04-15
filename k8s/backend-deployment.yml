@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: xbrl-backend-deployment
+  name: xbrl-to-json-backend-deployment
   labels:
-    app: xbrl-backend
+    app: xbrl-to-json-backend
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: xbrl-backend
+      app: xbrl-to-json-backend
   template:
     metadata:
       labels:
-        app: xbrl-backend
+        app: xbrl-to-json-backend
     spec:
       containers:
-      - name: xbrl-backend
-        image: ghcr.io/open-earth-foundation/xbrl-disclosure-explorer-backend:latest
+      - name: xbrl-to-json-backend
+        image: ghcr.io/open-earth-foundation/xbrl-to-json-converter-backend:latest
         imagePullPolicy: Always
         resources:
           requests:
@@ -28,20 +28,9 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         env:
-        - name: OPENAI_API_KEY
-          value: ADD_KEY_HERE
-        - name: ASSISTANT_ID
-          value: ADD_ID_HERE
         - name: ARELLE_URL
-          value: http://xbrl-arelle-service
+          value: http://xbrl-to-json-arelle-service
         - name: CORS_ORIGINS
-          value: https://xbrl-explorer.openearth.dev
+          value: https://xbrl-to-json.openearth.dev
         ports:
         - containerPort: 8000
-        volumeMounts:
-        - mountPath: /app/converted_files
-          name: backend-storage
-      volumes:
-      - name: backend-storage
-        persistentVolumeClaim:
-          claimName: xbrl-backend-storage
