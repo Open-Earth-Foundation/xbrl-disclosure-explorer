@@ -44,4 +44,4 @@ spec:
       volumes:
       - name: backend-storage
         persistentVolumeClaim:
-          claimName: xbrl-backend-storage
+          claimName: xbrl-backend-storage-gp3

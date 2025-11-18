@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: xbrl-backend-storage-gp3
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp3
+  volumeName: xbrl-backend-storage-gp3-pv
+  resources:
+    requests:
+      storage: 50Gi
